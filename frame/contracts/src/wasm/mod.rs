@@ -199,16 +199,15 @@ where
 			imports.add_host_func(module, name, func_ptr);
 		});
 
-		let mut runtime = Runtime::new(ext, input_data, memory);
-
 		// We store before executing so that the code hash is available in the constructor.
 		let code = self.code.clone();
 		if let &ExportedFunction::Constructor = function {
-			code_cache::store(self)
+			code_cache::store(self, ext.storage_meter())?;
 		}
 
 		// Instantiate the instance from the instrumented module code and invoke the contract
 		// entrypoint.
+		let mut runtime = Runtime::new(ext, input_data, memory);
 		let result = sp_sandbox::Instance::new(&code, &imports, &mut runtime)
 			.and_then(|mut instance| instance.invoke(function.identifier(), &[], &mut runtime));
 
