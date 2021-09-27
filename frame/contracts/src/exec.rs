@@ -1146,7 +1146,7 @@ mod tests {
 		storage::Storage,
 		tests::{
 			test_utils::{get_balance, place_contract, set_balance},
-			Call, Event as MetaEvent, ExtBuilder, Test, TestFilter, ALICE, BOB, CHARLIE,
+			Call, Event as MetaEvent, ExtBuilder, Test, TestFilter, ALICE, BOB, CHARLIE, GAS_LIMIT,
 		},
 		Error, Weight,
 	};
@@ -1166,8 +1166,6 @@ mod tests {
 	type System = frame_system::Pallet<Test>;
 
 	type MockStack<'a> = Stack<'a, Test, MockExecutable>;
-
-	const GAS_LIMIT: Weight = 10_000_000_000;
 
 	thread_local! {
 		static LOADER: RefCell<MockLoader> = RefCell::new(MockLoader::default());
@@ -1909,7 +1907,7 @@ mod tests {
 	fn in_memory_changes_not_discarded() {
 		// Remove this assert and fill out the "DO" stubs once fields are added to the
 		// contract info that can be modified during exection.
-		assert!(!CONTRACT_INFO_CAN_CHANGE);
+		//assert!(!CONTRACT_INFO_CAN_CHANGE);
 
 		// Call stack: BOB -> CHARLIE (trap) -> BOB' (success)
 		// This tests verfies some edge case of the contract info cache:

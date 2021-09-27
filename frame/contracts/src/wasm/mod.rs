@@ -239,6 +239,7 @@ mod tests {
 			AccountIdOf, BlockNumberOf, ErrorOrigin, ExecError, Executable, Ext, SeedOf, StorageKey,
 		},
 		gas::GasMeter,
+		storage,
 		tests::{Call, Test, ALICE, BOB},
 		BalanceOf, CodeHash, Error, Pallet as Contracts,
 	};
@@ -408,6 +409,9 @@ mod tests {
 		}
 		fn gas_meter(&mut self) -> &mut GasMeter<Self::T> {
 			&mut self.gas_meter
+		}
+		fn storage_meter(&mut self) -> &mut storage::meter::NestedMeter<Self::T> {
+			unimplemented!()
 		}
 		fn append_debug_buffer(&mut self, msg: &str) -> bool {
 			self.debug_buffer.extend(msg.as_bytes());

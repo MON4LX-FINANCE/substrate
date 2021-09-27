@@ -253,6 +253,8 @@ parameter_types! {
 	pub const MaxCodeSize: u32 = 2 * 1024;
 	pub MySchedule: Schedule<Test> = <Schedule<Test>>::default();
 	pub const TransactionByteFee: u64 = 0;
+	pub const DepositPerByte: BalanceOf<Test> = 1u32.into();
+	pub const DepositPerItem: BalanceOf<Test> = 10u32.into();
 }
 
 impl Convert<Weight, BalanceOf<Self>> for Test {
@@ -294,6 +296,8 @@ impl Config for Test {
 	type DeletionQueueDepth = DeletionQueueDepth;
 	type DeletionWeightLimit = DeletionWeightLimit;
 	type Schedule = MySchedule;
+	type DepositPerByte = DepositPerByte;
+	type DepositPerItem = DepositPerItem;
 }
 
 pub const ALICE: AccountId32 = AccountId32::new([1u8; 32]);
@@ -301,7 +305,7 @@ pub const BOB: AccountId32 = AccountId32::new([2u8; 32]);
 pub const CHARLIE: AccountId32 = AccountId32::new([3u8; 32]);
 pub const DJANGO: AccountId32 = AccountId32::new([4u8; 32]);
 
-const GAS_LIMIT: Weight = 10_000_000_000;
+pub const GAS_LIMIT: Weight = 10_000_000_000;
 
 pub struct ExtBuilder {
 	existential_deposit: u64,
